@@ -10,6 +10,6 @@ jobs:
   on-success:
     runs-on: ubuntu-latest
     steps:
-      - name:
+      - name: pws and ls
         run: pwd & ls
 
