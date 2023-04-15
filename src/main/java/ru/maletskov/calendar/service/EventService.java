@@ -8,8 +8,6 @@ import ru.maletskov.calendar.entity.Event;
 import ru.maletskov.calendar.mapper.EventMapper;
 import ru.maletskov.calendar.repository.EventRepository;
 
-import java.util.UUID;
-
 @Service
 @RequiredArgsConstructor
 public class EventService {
@@ -19,8 +17,8 @@ public class EventService {
     private EventMapper eventMapper;
 
     public Mono<Event> createEvent(EventDto eventDto){
-        Event event = eventMapper.toEvent(eventDto);
-        event.setId(UUID.randomUUID());
-        return Mono.just(eventRepository.save(event));
+        return Mono.just(eventDto)
+                .map(eventMapper::toEvent)
+                .map(eventRepository::save);
     }
 }
