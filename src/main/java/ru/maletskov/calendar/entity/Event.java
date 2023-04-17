@@ -26,7 +26,7 @@ public class Event {
 
     private ZonedDateTime endDateTime;
 
-    private Boolean allDayEvent;
+    private boolean allDayEvent;
 
     private String description;
 

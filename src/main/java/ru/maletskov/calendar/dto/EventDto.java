@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.maletskov.calendar.entity.EventType;
 
+import javax.validation.constraints.NotNull;
 import java.time.ZonedDateTime;
 import java.util.UUID;
 
@@ -15,20 +16,22 @@ import java.util.UUID;
 @NoArgsConstructor
 public class EventDto {
 
+    @NotNull
     private UUID userId;
 
+    @NotNull
     private String name;
 
+    @NotNull
     private ZonedDateTime startDateTime;
 
+    @NotNull
     private ZonedDateTime endDateTime;
 
-    private Boolean allDayEvent;
+    private boolean allDayEvent;
 
     private String description;
 
     private EventType type;
-
-    private UUID organizer;
 
 }

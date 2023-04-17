@@ -14,8 +14,9 @@ public class EventService {
 
     private final EventRepository eventRepository;
 
-    private EventMapper eventMapper;
+    private final EventMapper eventMapper;
 
+    //todo return EventDto instead of Event
     public Mono<Event> createEvent(EventDto eventDto){
         return Mono.just(eventDto)
                 .map(eventMapper::toEvent)

@@ -15,25 +15,28 @@ public class EventMapper {
                 .name(event.getName())
                 .startDateTime(event.getStartDateTime())
                 .endDateTime(event.getEndDateTime())
-                .allDayEvent(event.getAllDayEvent())
+                .allDayEvent(event.isAllDayEvent())
                 .description(event.getDescription())
                 .type(event.getType())
-                .organizer(event.getOrganizer())
                 .build();
     }
 
-
     public Event toEvent(EventDto eventDto){
+        if (eventDto.getStartDateTime().isAfter(eventDto.getEndDateTime())) {
+            //todo add message
+            throw new IllegalArgumentException("");
+        }
+        // todo other checks
         return Event.builder()
                 .id(UUID.randomUUID())
                 .userId(eventDto.getUserId())
                 .name(eventDto.getName())
                 .startDateTime(eventDto.getStartDateTime())
                 .endDateTime(eventDto.getEndDateTime())
-                .allDayEvent(eventDto.getAllDayEvent())
+                .allDayEvent(eventDto.isAllDayEvent())
                 .description(eventDto.getDescription())
                 .type(eventDto.getType())
-                .organizer(eventDto.getOrganizer())
+                .organizer(eventDto.getUserId())
                 .build();
     }
 }
