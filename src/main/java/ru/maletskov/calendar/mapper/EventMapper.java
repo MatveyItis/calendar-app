@@ -3,7 +3,9 @@ package ru.maletskov.calendar.mapper;
 import org.springframework.stereotype.Component;
 import ru.maletskov.calendar.dto.EventDto;
 import ru.maletskov.calendar.entity.Event;
+import ru.maletskov.calendar.entity.EventType;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Component
@@ -21,12 +23,13 @@ public class EventMapper {
                 .build();
     }
 
-    public Event toEvent(EventDto eventDto){
-        if (eventDto.getStartDateTime().isAfter(eventDto.getEndDateTime())) {
-            //todo add message
-            throw new IllegalArgumentException("");
+
+    public Event toEvent(EventDto eventDto) {
+
+        if (!eventDto.getStartDateTime().isBefore(eventDto.getEndDateTime())) {
+            throw new IllegalArgumentException("Your event start time is later or same as event end time");
         }
-        // todo other checks
+
         return Event.builder()
                 .id(UUID.randomUUID())
                 .userId(eventDto.getUserId())
@@ -35,7 +38,7 @@ public class EventMapper {
                 .endDateTime(eventDto.getEndDateTime())
                 .allDayEvent(eventDto.isAllDayEvent())
                 .description(eventDto.getDescription())
-                .type(eventDto.getType())
+                .type(Optional.ofNullable(eventDto.getType()).orElse(EventType.MEETING))
                 .organizer(eventDto.getUserId())
                 .build();
     }
