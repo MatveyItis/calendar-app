@@ -1,29 +1,31 @@
-package ru.maletskov.calendar.entity;
+package ru.maletskov.calendar.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.redis.core.RedisHash;
+import ru.maletskov.calendar.entity.EventType;
 
+import javax.validation.constraints.NotNull;
 import java.time.ZonedDateTime;
 import java.util.UUID;
 
 @Data
 @Builder
-@RedisHash
 @AllArgsConstructor
 @NoArgsConstructor
-public class Event {
+public class EventDto {
 
-    private UUID id;
-
+    @NotNull
     private UUID userId;
 
+    @NotNull
     private String name;
 
+    @NotNull
     private ZonedDateTime startDateTime;
 
+    @NotNull
     private ZonedDateTime endDateTime;
 
     private boolean allDayEvent;
@@ -31,7 +33,5 @@ public class Event {
     private String description;
 
     private EventType type;
-
-    private UUID organizer;
 
 }
